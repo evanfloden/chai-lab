@@ -52,6 +52,62 @@ Chai-1 supports MSAs provided as an `aligned.pqt` file. This file format is simi
 </p>
 </details>
 
+## Running with Nextflow
+
+We provide a Nextflow pipeline for running Chai-1 in a reproducible and scalable way. The pipeline supports both local execution and cloud deployment via Seqera Platform.
+
+### Local Execution
+
+To run the pipeline locally with docker
+
+```bash
+# Basic usage with docker and default parameters
+nextflow run main.nf -profile docker
+
+# Specify your own FASTA file
+nextflow run main.nf --fasta path/to/your/sequence.fa
+
+# With optional MSA directory and constraints (TODO)
+nextflow run main.nf --fasta sequence.fa --msa_dir msas/ --constraints constraints.txt
+
+```
+
+### Nextflow on Seqera Platform
+
+To run the pipeline on Seqera Platform:
+
+1. First, configure your Seqera credentials in `nextflow.config`:
+```nextflow
+tower {
+    enabled = true
+    accessToken = 'your-seqera-access-token'
+    workspaceId = 'your-workspace-id'
+}
+```
+
+2. Then run the pipeline with Tower enabled:
+```bash
+TO DO
+```
+
+### Pipeline Parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `--fasta` | Input FASTA file | `examples/fasta/example.fa` |
+| `--msa_dir` | Directory containing MSA files (optional) | `null` |
+| `--constraints` | Path to constraints file (optional) | `null` |
+| `--outdir` | Output directory | `results` |
+
+### Resource Configuration
+
+The pipeline is configured with the following default for resource allocation:
+- CPU: 6 cores
+- Memory: 32GB
+- Time: 4 hours
+
+
+
 ## ⚡ Try it online
 
 We provide a [web server](https://lab.chaidiscovery.com) so you can test the Chai-1 model right from your browser, without any setup.
