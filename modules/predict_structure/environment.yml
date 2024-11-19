@@ -1,0 +1,9 @@
+channels:
+- conda-forge
+- bioconda
+dependencies:
+- gcc_linux-64
+- python=3.12
+- pip
+- pip:
+  - chai_lab==0.2.1
