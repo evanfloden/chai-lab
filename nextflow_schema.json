@@ -1,0 +1,89 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/chaidiscovery/chai-lab/main/nextflow_schema.json",
+    "title": "Chai-1 Nextflow Pipeline Parameters",
+    "description": "Schema for the parameters used in the Chai-1 structure prediction pipeline",
+    "type": "object",
+    "definitions": {
+        "input_options": {
+            "title": "Input Options",
+            "type": "object",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "required": [
+                "fasta"
+            ],
+            "properties": {
+                "fasta": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "Path to input FASTA file containing the sequence(s) to predict.",
+                    "help_text": "The input FASTA file should contain one or more sequences in standard FASTA format.",
+                    "default": "examples/fasta/example.fa"
+                },
+                "msa_dir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "Directory containing MSA files (optional).",
+                    "help_text": "If provided, should contain aligned.pqt files for the input sequences.",
+                    "default": null
+                },
+                "constraints": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "Path to constraints file (optional).",
+                    "help_text": "File containing structural constraints to guide the prediction.",
+                    "default": null
+                },
+                "model_dir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "Directory where model weights and other artifacts will be downloaded.",
+                    "help_text": "This directory will be used to store downloaded model weights and other required files."
+                }
+            }
+        },
+        "output_options": {
+            "title": "Output Options",
+            "type": "object",
+            "description": "Define where the pipeline should save output data.",
+            "properties": {
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "The output directory where results will be saved.",
+                    "default": "results"
+                },
+                "publish_dir_mode": {
+                    "type": "string",
+                    "description": "Method used to save pipeline results to output directory.",
+                    "help_text": "The Nextflow publishDir mode for saving output files. Available: symlink, rellink, link, copy, copyNoFollow, move.",
+                    "default": "copy",
+                    "enum": [
+                        "symlink",
+                        "rellink",
+                        "link",
+                        "copy",
+                        "copyNoFollow",
+                        "move"
+                    ]
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_options"
+        },
+        {
+            "$ref": "#/definitions/output_options"
+        }
+    ],
+    "properties": {
+        "help": {
+            "type": "boolean",
+            "description": "Display help message",
+            "default": false,
+            "fa_icon": "fas fa-question-circle"
+        }
+    }
+}
